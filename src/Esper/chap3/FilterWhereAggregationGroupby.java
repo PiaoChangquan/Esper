@@ -5,8 +5,8 @@ import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
 
-import Esper.chap3.Listener.AggergationEPLListener;
 import Esper.unit.EventType.SensorData;
+import Esper.unit.Listener.AggergationListener;
 import Esper.unit.Listener.GeneralListener;
 import Esper.unit.Stream.StreamThread;
 
@@ -58,7 +58,7 @@ public class FilterWhereAggregationGroupby {
 		// Epl: group by
 		String Groupby = "select avg(value), id from Sensor.win:length_batch(4) group by id";
 		EPStatement stateGroupby = admin.createEPL(Groupby);
-		stateGroupby.addListener(new AggergationEPLListener());
+		stateGroupby.addListener(new AggergationListener());
 
 	}
 }
