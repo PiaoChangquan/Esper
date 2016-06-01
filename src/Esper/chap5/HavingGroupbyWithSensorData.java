@@ -34,6 +34,8 @@ public class HavingGroupbyWithSensorData {
 		EPStatement stateHavingEpl = admin.createEPL(HavingEpl);
 		stateHavingEpl.addListener(new AggergationListener());
 		
+		
+		
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");
 		StreamThread Humidity = new StreamThread("Humidity");

@@ -7,6 +7,7 @@ import com.espertech.esper.client.EPStatement;
 
 import Esper.unit.EventType.SensorData;
 import Esper.unit.Listener.AggergationListener;
+import Esper.unit.Listener.GeneralListener;
 import Esper.unit.Stream.StreamThread;
 
 public class OutputWithSensorData {
@@ -26,12 +27,42 @@ public class OutputWithSensorData {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 		
-		String OutputEPL = "select avg(value),* from tempSensor.win:time(12 sec) output   snapshot every 2 seconds";
+		//Epl output 
+//		String OutputEPL = "select avg(value),* from tempSensor.win:time(12 sec) "
+//				+ "output   snapshot every 2 seconds";
+//		EPStatement stateOutputEPL = admin.createEPL(OutputEPL);
+//		stateOutputEPL.addListener(new AggergationListener());
 		
+		//Epl output with after
+//		String OutputEPL = "select avg(value),* from tempSensor.win:length(3) "
+//				+ "output after 2 events snapshot every 2 events";
+//		EPStatement stateOutputEPL = admin.createEPL(OutputEPL);
+//		stateOutputEPL.addListener(new AggergationListener());		
+//		
+		//Epl output with first & last
+//		String OutputEPL = "select * from tempSensor.win:length(3) "
+//				+ "output first every 2 events";
+//		EPStatement stateOutputEPL = admin.createEPL(OutputEPL);
+//		stateOutputEPL.addListener(new GeneralListener());
+		
+
+		//Epl output with last
+//		String OutputEPL = "select * from tempSensor.win:length(3) "
+//				+ "output last every 2 events";
+//		EPStatement stateOutputEPL = admin.createEPL(OutputEPL);
+//		stateOutputEPL.addListener(new GeneralListener());
+
+		//Epl output with all
+//		String OutputEPL = "select * from tempSensor.win:length(5) "
+//				+ "output  every 2 events";
+//		EPStatement stateOutputEPL = admin.createEPL(OutputEPL);
+//		stateOutputEPL.addListener(new GeneralListener());
+
+		//Epl output with all
+		String OutputEPL = "select * from tempSensor.win:length(15) "
+				+ "output  snapshot every 2 events";
 		EPStatement stateOutputEPL = admin.createEPL(OutputEPL);
-		stateOutputEPL.addListener(new AggergationListener());
-	
-		
+		stateOutputEPL.addListener(new GeneralListener());
 		
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");

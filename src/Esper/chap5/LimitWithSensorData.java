@@ -6,12 +6,11 @@ import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
 
 import Esper.unit.EventType.SensorData;
-import Esper.unit.Listener.AggergationListener;
+import Esper.unit.Listener.GeneralListener;
 import Esper.unit.Stream.StreamThread;
 
-public class SelectFromWithSensorData {
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+public class LimitWithSensorData {
+	public static void main(String[] arges){
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
 		EPAdministrator admin = epService.getEPAdministrator();
 
@@ -27,12 +26,14 @@ public class SelectFromWithSensorData {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 		
-		// Epl: select
-		String selectEPL = "select t.id, t.value, l.id, l.value, t.value + l.value as test from tempSensor.win:length_batch(2) as t, "
-				+ "lightSensor.win:length_batch(2) as l "
-				+ "where t.timestamp = l.timestamp";
-		EPStatement stateselectEPL = admin.createEPL(selectEPL);
-		stateselectEPL.addListener(new AggergationListener());
+
+		//Epl limit
+//		Syntax: limit row_count [offset offset_count]
+
+		String OrderbyEPL = "select * from tempSensor.win:length_batch(5) "
+				+ "limit 3 offset 1";
+		EPStatement stateOrderbyEPL = admin.createEPL(OrderbyEPL);
+		stateOrderbyEPL.addListener(new GeneralListener());
 		
 		
 		
@@ -44,9 +45,8 @@ public class SelectFromWithSensorData {
 		Thread l = new Thread(Light);
 		Thread h = new Thread(Humidity);
 		t.start();
-		l.start();
+//		l.start();
 //		h.start();
-
 
 	}
 }
