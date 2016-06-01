@@ -9,7 +9,7 @@ import Esper.unit.EventType.SensorData;
 import Esper.unit.Listener.AggergationListener;
 import Esper.unit.Stream.StreamThread;
 
-public class SelectFromWithStream {
+public class SelectFromWithSensorData {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
@@ -39,10 +39,10 @@ public class SelectFromWithStream {
 //		h.start();
 
 		// Epl: select
-		String irstreamEPL = "select t.id, t.value, l.id, l.value, t.value + l.value as test from tempSensor.win:length_batch(2) as t, "
+		String selectEPL = "select t.id, t.value, l.id, l.value, t.value + l.value as test from tempSensor.win:length_batch(2) as t, "
 				+ "lightSensor.win:length_batch(2) as l "
 				+ "where t.timestamp = l.timestamp";
-		EPStatement stateirstreamEPL = admin.createEPL(irstreamEPL);
-		stateirstreamEPL.addListener(new AggergationListener());
+		EPStatement stateselectEPL = admin.createEPL(selectEPL);
+		stateselectEPL.addListener(new AggergationListener());
 	}
 }

@@ -9,9 +9,8 @@ import Esper.unit.EventType.SensorData;
 import Esper.unit.Listener.AggergationListener;
 import Esper.unit.Stream.StreamThread;
 
-public class HavingGroupbyWithSensorData {
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+public class OutputWithSensorData {
+	public static void main(String[] arges){
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
 		EPAdministrator admin = epService.getEPAdministrator();
 
@@ -36,12 +35,14 @@ public class HavingGroupbyWithSensorData {
 		Thread h = new Thread(Humidity);
 		t.start();
 		l.start();
-		h.start();
+//		h.start();
 
-		// Epl: Having&Group By clause
-		String HavingEpl = "select avg(value) as Avgvalue, id, timestamp, value"
-				+ " from Sensor.win:length_batch(6) group by id having avg(value)>20 ";
-		EPStatement stateHavingEpl = admin.createEPL(HavingEpl);
-		stateHavingEpl.addListener(new AggergationListener());
+		// Epl: select
+		String irstreamEPL = "select t.id, t.value, l.id, l.value, t.value + l.value as test from tempSensor.win:length_batch(2) as t, "
+				+ "lightSensor.win:length_batch(2) as l "
+				+ "where t.timestamp = l.timestamp";
+		
+		EPStatement stateirstreamEPL = admin.createEPL(irstreamEPL);
+		stateirstreamEPL.addListener(new AggergationListener());
 	}
 }
