@@ -10,7 +10,7 @@ import Esper.unit.Listener.AggergationListener;
 import Esper.unit.Stream.StreamThread;
 
 public class OutputWithSensorData {
-	public static void main(String[] arges){
+	public static void main(String[] arges) throws InterruptedException{
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
 		EPAdministrator admin = epService.getEPAdministrator();
 
@@ -25,7 +25,14 @@ public class OutputWithSensorData {
 		admin.createEPL(eplforTemp);
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
-
+		
+		String OutputEPL = "select avg(value),* from tempSensor.win:time(12 sec) output   snapshot every 2 seconds";
+		
+		EPStatement stateOutputEPL = admin.createEPL(OutputEPL);
+		stateOutputEPL.addListener(new AggergationListener());
+	
+		
+		
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");
 		StreamThread Humidity = new StreamThread("Humidity");
@@ -34,15 +41,10 @@ public class OutputWithSensorData {
 		Thread l = new Thread(Light);
 		Thread h = new Thread(Humidity);
 		t.start();
-		l.start();
+//		l.start();
 //		h.start();
 
-		// Epl: select
-		String irstreamEPL = "select t.id, t.value, l.id, l.value, t.value + l.value as test from tempSensor.win:length_batch(2) as t, "
-				+ "lightSensor.win:length_batch(2) as l "
-				+ "where t.timestamp = l.timestamp";
-		
-		EPStatement stateirstreamEPL = admin.createEPL(irstreamEPL);
-		stateirstreamEPL.addListener(new AggergationListener());
+		// Epl: output
+	
 	}
 }

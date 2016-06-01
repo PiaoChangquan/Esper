@@ -29,17 +29,6 @@ public class FilterWhereAggregationGroupby {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 
-		// run Sensor Thread
-		StreamThread Temp = new StreamThread("Temp");
-		StreamThread Humidity = new StreamThread("Humidity");
-		StreamThread Light = new StreamThread("Light");
-		Thread t = new Thread(Temp);
-		Thread l = new Thread(Light);
-		Thread h = new Thread(Humidity);
-		t.start();
-		l.start();
-		// h.start();
-
 		// Epl: filter
 		// String filter = "select * from Sensor(value>20).win:length_batch(2)";
 		// EPStatement statefilter = admin.createEPL(filter);
@@ -60,5 +49,20 @@ public class FilterWhereAggregationGroupby {
 		EPStatement stateGroupby = admin.createEPL(Groupby);
 		stateGroupby.addListener(new AggergationListener());
 
+		
+			
+		
+		// run Sensor Thread
+		StreamThread Temp = new StreamThread("Temp");
+		StreamThread Humidity = new StreamThread("Humidity");
+		StreamThread Light = new StreamThread("Light");
+		Thread t = new Thread(Temp);
+		Thread l = new Thread(Light);
+		Thread h = new Thread(Humidity);
+		t.start();
+		l.start();
+		// h.start();
+
+	
 	}
 }

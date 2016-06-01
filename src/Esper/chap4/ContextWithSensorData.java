@@ -29,16 +29,6 @@ public class ContextWithSensorData {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 
-		// run Sensor Thread
-		StreamThread Temp = new StreamThread("Temp");
-		StreamThread Humidity = new StreamThread("Humidity");
-		StreamThread Light = new StreamThread("Light");
-		Thread t = new Thread(Temp);
-		Thread l = new Thread(Light);
-		Thread h = new Thread(Humidity);
-		t.start();
-		// l.start();
-		// h.start();
 
 		// Epl: Context
 		// String CreateContext = "create context SensorContext partition by id
@@ -86,6 +76,16 @@ public class ContextWithSensorData {
 		// EPStatement stateContext = admin.createEPL(Context);
 		// stateContext.addListener(new AggergationListener());
 
+		// run Sensor Thread
+		StreamThread Temp = new StreamThread("Temp");
+		StreamThread Humidity = new StreamThread("Humidity");
+		StreamThread Light = new StreamThread("Light");
+		Thread t = new Thread(Temp);
+		Thread l = new Thread(Light);
+		Thread h = new Thread(Humidity);
+		t.start();
+		// l.start();
+		// h.start();
 	}
 
 }

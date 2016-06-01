@@ -26,7 +26,13 @@ public class SelectFromWithSensorData {
 		admin.createEPL(eplforTemp);
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
-
+		
+		// Epl: select
+		String selectEPL = "select t.id, t.value, l.id, l.value, t.value + l.value as test from tempSensor.win:length_batch(2) as t, "
+				+ "lightSensor.win:length_batch(2) as l "
+				+ "where t.timestamp = l.timestamp";
+		EPStatement stateselectEPL = admin.createEPL(selectEPL);
+		stateselectEPL.addListener(new AggergationListener());
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");
 		StreamThread Humidity = new StreamThread("Humidity");
@@ -38,11 +44,6 @@ public class SelectFromWithSensorData {
 		l.start();
 //		h.start();
 
-		// Epl: select
-		String selectEPL = "select t.id, t.value, l.id, l.value, t.value + l.value as test from tempSensor.win:length_batch(2) as t, "
-				+ "lightSensor.win:length_batch(2) as l "
-				+ "where t.timestamp = l.timestamp";
-		EPStatement stateselectEPL = admin.createEPL(selectEPL);
-		stateselectEPL.addListener(new AggergationListener());
+
 	}
 }

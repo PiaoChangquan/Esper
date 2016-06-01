@@ -27,16 +27,6 @@ public class TimeLengthWindow {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 
-		// run Sensor Thread
-		StreamThread Temp = new StreamThread("Temp");
-		StreamThread Humidity = new StreamThread("Humidity");
-		StreamThread Light = new StreamThread("Light");
-		Thread t = new Thread(Temp);
-		Thread l = new Thread(Light);
-		Thread h = new Thread(Humidity);
-		t.start();
-		// l.start();
-		// h.start();
 		
 		
 //		// Epl: timeWindow - time
@@ -59,6 +49,19 @@ public class TimeLengthWindow {
 //		 EPStatement statelength_batch = admin.createEPL(length_batchWindow);
 //		 statelength_batch.addListener(new GeneralListener());
 		
+		
+		// run Sensor Thread
+		StreamThread Temp = new StreamThread("Temp");
+		StreamThread Humidity = new StreamThread("Humidity");
+		StreamThread Light = new StreamThread("Light");
+		Thread t = new Thread(Temp);
+		Thread l = new Thread(Light);
+		Thread h = new Thread(Humidity);
+		t.start();
+		// l.start();
+		// h.start();
+		
+
 	
 		
 		

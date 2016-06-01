@@ -27,6 +27,13 @@ public class HavingGroupbyWithSensorData {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 
+
+		// Epl: Having&Group By clause
+		String HavingEpl = "select avg(value) as Avgvalue, id, timestamp, value"
+				+ " from Sensor.win:length_batch(6) group by id having avg(value)>20 ";
+		EPStatement stateHavingEpl = admin.createEPL(HavingEpl);
+		stateHavingEpl.addListener(new AggergationListener());
+		
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");
 		StreamThread Humidity = new StreamThread("Humidity");
@@ -37,11 +44,5 @@ public class HavingGroupbyWithSensorData {
 		t.start();
 		l.start();
 		h.start();
-
-		// Epl: Having&Group By clause
-		String HavingEpl = "select avg(value) as Avgvalue, id, timestamp, value"
-				+ " from Sensor.win:length_batch(6) group by id having avg(value)>20 ";
-		EPStatement stateHavingEpl = admin.createEPL(HavingEpl);
-		stateHavingEpl.addListener(new AggergationListener());
 	}
 }
