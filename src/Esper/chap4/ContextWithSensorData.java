@@ -29,8 +29,12 @@ public class ContextWithSensorData {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 
-
 		// Epl: Context
+		// Syntax£ºcreate context context_name partition [by]
+		// event_property [and event_property [and ...]] from stream_def
+		// [, event_property [...] from stream_def]
+		// [, ...]
+		
 		// String CreateContext = "create context SensorContext partition by id
 		// from Sensor ";
 		// String Context = "context SensorContext select context.id from
@@ -50,6 +54,12 @@ public class ContextWithSensorData {
 		// stateContext.addListener(new AggergationListener());
 
 		// Epl: Hash Context
+		// Syntax£ºcreate context context_name coalesce [by]
+		// hash_func_name(hash_func_param) from stream_def
+		// [, hash_func_name(hash_func_param) from stream_def ]
+		// [, ...]
+		// granularity granularity_value
+		// [preallocate]
 		// create context ETest coalesce by hash_code(id) from EStream
 		// granularity 10 preallocate
 		//
@@ -63,6 +73,12 @@ public class ContextWithSensorData {
 		// stateContext.addListener(new AggergationListener());
 
 		// Epl: Category Context
+		// Syntax: create context context_name
+		// group [by] group_expression as category_label
+		// [, group [by] group_expression as category_label]
+		// [,...]
+		// from stream_def
+		
 		// String CreateContext = "create context SensorContext "
 		// + "group by value<10 as low, "
 		// + "group by value>20 and value<30 as middle, "

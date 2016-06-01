@@ -10,8 +10,8 @@ import Esper.unit.Listener.AggergationListener;
 import Esper.unit.Listener.GeneralListener;
 import Esper.unit.Stream.StreamThread;
 
-public class OrderbyWithSensorData {
-	public static void main(String[] args) {
+public class insertIntoWithSensorData {
+	public static void main(String[] arges) {
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
 		EPAdministrator admin = epService.getEPAdministrator();
 
@@ -27,13 +27,14 @@ public class OrderbyWithSensorData {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 
-		// Epl Order by
-		// Syntax: order by expression [asc | desc] [, expression [asc | desc]]
-		// [, ...]
+		// Epl insert
+		// Syntax: insert [istream | irstream | rstream] into event_stream_name[(property_name [, property_name] ) ]
 
-		String OrderbyEPL = "select * from tempSensor.win:length_batch(3) " + "order by value";
-		EPStatement stateOrderbyEPL = admin.createEPL(OrderbyEPL);
-		stateOrderbyEPL.addListener(new GeneralListener());
+		String insertEPL = "insert into newSensor(newId, newValue) select id, value*2 from tempSensor";
+		admin.createEPL(insertEPL);
+		String selectEPL = "select * from newSensor";
+		EPStatement stateinsertEPL = admin.createEPL(selectEPL);
+		stateinsertEPL.addListener(new AggergationListener());
 
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");

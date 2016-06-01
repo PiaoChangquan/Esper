@@ -10,7 +10,7 @@ import Esper.unit.Listener.GeneralListener;
 import Esper.unit.Stream.StreamThread;
 
 public class LimitWithSensorData {
-	public static void main(String[] arges){
+	public static void main(String[] arges) {
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
 		EPAdministrator admin = epService.getEPAdministrator();
 
@@ -25,18 +25,14 @@ public class LimitWithSensorData {
 		admin.createEPL(eplforTemp);
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
-		
 
-		//Epl limit
-//		Syntax: limit row_count [offset offset_count]
+		// Epl limit
+		// Syntax: limit row_count [offset offset_count]
 
-		String OrderbyEPL = "select * from tempSensor.win:length_batch(5) "
-				+ "limit 3 offset 1";
-		EPStatement stateOrderbyEPL = admin.createEPL(OrderbyEPL);
-		stateOrderbyEPL.addListener(new GeneralListener());
-		
-		
-		
+		String limitEPL = "select * from tempSensor.win:length_batch(5) " + "limit 3 offset 1";
+		EPStatement statelimitEPL = admin.createEPL(limitEPL);
+		statelimitEPL.addListener(new GeneralListener());
+
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");
 		StreamThread Humidity = new StreamThread("Humidity");
@@ -45,8 +41,8 @@ public class LimitWithSensorData {
 		Thread l = new Thread(Light);
 		Thread h = new Thread(Humidity);
 		t.start();
-//		l.start();
-//		h.start();
+		// l.start();
+		// h.start();
 
 	}
 }
