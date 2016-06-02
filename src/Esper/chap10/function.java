@@ -4,6 +4,7 @@ import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
+import com.espertech.esper.client.StatementAwareUpdateListener;
 
 import Esper.unit.EventType.SensorData;
 import Esper.unit.Listener.AggergationListener;
@@ -27,7 +28,17 @@ public class function {
 		admin.createEPL(eplforHumidity);
 		admin.createEPL(eplforLight);
 
-
+//		// Epl: cast
+//		String cast = "select cast('20100502', date, dateformat: 'yyyyMMdd') from Sensor";
+//		EPStatement statecast = admin.createEPL(cast);
+//		statecast.addListener(new AggergationListener());
+		
+//		// Epl: istream
+//		String istream = "select irstream *, istream() from tempSensor.win:time(3 sec)";
+//		EPStatement stateistream = admin.createEPL(istream);
+//		stateistream.addListener(new AggergationListener());
+		
+//		select cast('20100502', date, dateformat: 'yyyyMMdd') from OrderEvent
 		// Epl: current_evaluation_context()
 //		String current_evaluation_context = "select "
 //				+ "current_evaluation_context().getEngineURI() as engineURI,* from Sensor";
@@ -56,7 +67,7 @@ public class function {
 //		stateprevtail.addListener(new AggergationListener());
 		
 		// Epl: prevwindow
-//		String prevwindow = "select prevwindow(S) from Sensor.win:length(1) as S";
+//		String prevwindow = "select prevwindow(S) from Sensor.win:length(3) as S";
 //		EPStatement stateprevwindow = admin.createEPL(prevwindow);
 //		stateprevwindow.addListener(new AggergationListener());
 		
@@ -72,11 +83,17 @@ public class function {
 //		String prior = "select prior(2,value) from Sensor";
 //		EPStatement stateprior = admin.createEPL(prior);
 //		stateprior.addListener(new AggergationListener());
-		
+
 		// Epl: window
-		String window = "select window(*) from Sensor.win:time(10 sec)";
-		EPStatement statewindow = admin.createEPL(window);
-		statewindow.addListener(new AggergationListener());
+//		String window = "select window(*) from Sensor.win:time(10 sec)";
+//		EPStatement statewindow = admin.createEPL(window);
+//		statewindow.addListener(new AggergationListener());
+	
+//		// Epl: sorted
+//		String sorted = "select sorted(value),value,id from Sensor.win:length_batch(10) as s group by id";
+//		EPStatement statesorted = admin.createEPL(sorted);
+//		statesorted.addListener(new AggergationListener());
+		
 		
 		// run Sensor Thread
 		StreamThread Temp = new StreamThread("Temp");
