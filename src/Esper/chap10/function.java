@@ -73,8 +73,8 @@ public class function {
 		
 //		 Epl: prevcount
 //		String prevcount = "select prevcount(value) from Sensor.win:length(4) ";
-//		String prevcount = "select prevcount(S) from Sensor.win:length(4) as S";
 //		String prevcount = "select id, value, prevcount(value) from Sensor.std:groupwin(id).win:length(4)";
+//		String prevcount = "select prevcount(S) from Sensor.win:time(4) as S";
 //		EPStatement stateprevcount = admin.createEPL(prevcount);
 //		stateprevcount.addListener(new AggergationListener());
 		
