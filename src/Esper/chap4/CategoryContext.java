@@ -10,37 +10,29 @@ import com.espertech.esper.client.UpdateListener;
 
 import Esper.unit.Listener.AggergationListener;
 
-class ESB3
-{
+class ESB3 {
 	private int id;
 	private int price;
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getPrice()
-	{
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price)
-	{
+	public void setPrice(int price) {
 		this.price = price;
 	}
 }
 
-
-public class CategoryContext
-{
-	public static void main(String[] args)
-	{
+public class CategoryContext {
+	public static void main(String[] args) {
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
 		EPAdministrator admin = epService.getEPAdministrator();
 		EPRuntime runtime = epService.getEPRuntime();
@@ -48,12 +40,12 @@ public class CategoryContext
 		String esb = ESB3.class.getName();
 		String epl1 = "create context esbtest group by id<0 as low, group by id>0 and "
 				+ "id<10 as middle,group by id>10 as high from " + esb;
-		String epl2 = "context esbtest select context.id,context.name,"
-				+ "context.label, price from " + esb;
+		String epl2 = "context esbtest select context.id,context.name," + "context.label, price from " + esb;
 
 		admin.createEPL(epl1);
 		EPStatement state = admin.createEPL(epl2);
 		state.addListener(new AggergationListener());
+		
 
 		ESB3 e1 = new ESB3();
 		e1.setId(1);
