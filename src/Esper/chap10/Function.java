@@ -10,7 +10,7 @@ import Esper.unit.EventType.SensorData;
 import Esper.unit.Listener.AggergationListener;
 import Esper.unit.Stream.StreamThread;
 
-public class function {
+public class Function {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EPServiceProvider epService = EPServiceProviderManager.getDefaultProvider();
