@@ -30,18 +30,16 @@ public class ContextWithSensorData {
 		admin.createEPL(eplforLight);
 
 		// Epl: Context
-		// Syntax£ºcreate context context_name partition [by]
+		// Syntaxï¿½ï¿½create context context_name partition [by]
 		// event_property [and event_property [and ...]] from stream_def
 		// [, event_property [...] from stream_def]
 		// [, ...]
 		
-		// String CreateContext = "create context SensorContext partition by id
-		// from Sensor ";
-		// String Context = "context SensorContext select context.id from
-		// Sensor";
-		// admin.createEPL(CreateContext);
-		// EPStatement stateContext = admin.createEPL(Context);
-		// stateContext.addListener(new AggergationListener());
+		 String CreateContext = "create context SensorContext partition by id, value from Sensor ";
+		 String Context = "context SensorContext select context.id,context.name , value from	 Sensor";
+		 admin.createEPL(CreateContext);
+		 EPStatement stateContext = admin.createEPL(Context);
+		 stateContext.addListener(new AggergationListener());
 
 		// Epl: Context whit filter
 		// String CreateContext = "create context SensorContext partition by id,
@@ -54,7 +52,7 @@ public class ContextWithSensorData {
 		// stateContext.addListener(new AggergationListener());
 
 		// Epl: Hash Context
-		// Syntax£ºcreate context context_name coalesce [by]
+		// Syntaxï¿½ï¿½create context context_name coalesce [by]
 		// hash_func_name(hash_func_param) from stream_def
 		// [, hash_func_name(hash_func_param) from stream_def ]
 		// [, ...]

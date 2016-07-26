@@ -21,15 +21,7 @@ public class CreateEventWithPOJO {
 
 		admin.getConfiguration().addEventType("sensor", Sensor);
 
-//////		String epl = "select * from " + Person+ "(age in[23:26)) ";	
-//////		String epl = "select * from " + Person+ "(age >23) ";	
-////
-////		String epl = "select * from " + Person+ ".win:length_batch(2)  update istream "+Person+" set name='Piao' where age = 23 ";
-////		
-//		EPStatement state = admin.createEPL(epl);
-//		state.addListener(new PeopleListener());
-//		
-//		
+	
 		String epl = "select * from sensor";	
 
 		EPStatement state = admin.createEPL(epl);
